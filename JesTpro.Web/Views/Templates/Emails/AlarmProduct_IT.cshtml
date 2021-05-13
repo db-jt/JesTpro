@@ -1,0 +1,33 @@
+﻿@model jt.jestpro.Models.AlarmNotificationDto
+@{
+    Layout = "Emails/_DefaultLayout.cshtml";
+    var expDate = Model.ExpirationDate.Value.ToString("dd/MM/yyyy");
+    var customerName = $"{Model.CustomerName}";
+    var description = Model.Description;
+    var now = DateTime.UtcNow;
+}
+
+<h4>Ciao @customerName,</h4>
+
+<div style="margin-left: 10px;">
+    @if (now < Model.ExpirationDate.Value)
+    {
+        <div>
+            un tuo prodotto scad&aacute; il @expDate
+        </div>
+    }
+    else
+    {
+        <div>
+            un tuo prodotto &eacute; scaduto il @expDate
+        </div>
+    }
+   
+    <div style="font-weight: bold">Dettagli del prodotto</div>
+    <div>
+        @description
+    </div>
+</div>
+<div style="margin-top: 10px;">
+    Saluti, JesTpro team
+</div>

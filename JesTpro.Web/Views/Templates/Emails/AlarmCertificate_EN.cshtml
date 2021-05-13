@@ -1,0 +1,27 @@
+﻿@model jt.jestpro.Models.AlarmNotificationDto
+@{
+    Layout = "Emails/_DefaultLayout.cshtml";
+    var expDate = Model.ExpirationDate.Value.ToString("dd/MM/yyyy");
+    var customerName = $"{Model.CustomerName}";
+    var now = DateTime.UtcNow;
+}
+
+<h4>Hello @customerName,</h4>
+
+<div style="margin-left: 10px;">
+    @if (now < Model.ExpirationDate.Value)
+    {
+        <div>
+            your medical certificate will expire on @expDate
+        </div>
+    }
+    else
+    {
+        <div>
+            your medical certificate is expired on @expDate
+        </div>
+    }
+</div>
+<div style="margin-top: 10px;">
+    Best regards, JesTpro team
+</div>

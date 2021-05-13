@@ -1,0 +1,2 @@
+﻿ALTER TABLE `user` 
+ADD COLUMN `DashboardData` LONGTEXT NULL DEFAULT NULL AFTER `IdRole`;

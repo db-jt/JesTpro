@@ -1,0 +1,157 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+    <AssemblyName>JesTproWeb</AssemblyName>
+    <RootNamespace>jt.jestpro</RootNamespace>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="MailKit" Version="2.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.14" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.14" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.14" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.14" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="MimeTypes" Version="1.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.5" />
+    <PackageReference Include="RazorLight" Version="2.0.0-beta9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="libwkhtmltox.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="libwkhtmltox.dylib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="libwkhtmltox.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="obfuscar.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Remove="app\assets\i18n\*.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app\assets\i18n\*.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\**" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlMigrations\**" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="SqliteMigrations\200_ADD_BIRTHPLACE_TO_CUSTOMER_TABLE.sql" />
+    <None Remove="SqliteMigrations\210_CREATE_IMPORT_TABLE.sql" />
+    <None Remove="SqliteMigrations\220_ADD_TEACHER_REF_TO_PRODUCTS.sql" />
+    <None Remove="SqliteMigrations\230_PRODUCT_SESSION_MANAGEMENT.sql" />
+    <None Remove="SqliteMigrations\240_ADD_EXCEL_DATE_PATTERN_SETTINGS.sql" />
+    <None Remove="SqliteMigrations\250_ALARM_WORKER_MANAGEMENT.sql" />
+    <None Remove="SqliteMigrations\260_ADD_ACCOUNTING_YEAR.sql" />
+    <None Remove="SqliteMigrations\270_ADD_DASHBOARD_SETTINGS.sql" />
+    <None Remove="SqliteMigrations\CREATE_DB.sql" />
+    <None Remove="SqlMigrations\001_ADD_DEFAULT_SETTINGS.sql" />
+    <None Remove="SqlMigrations\002_ADD_DISCOUNT_TO_RECEIPT.sql" />
+    <None Remove="SqlMigrations\010_ADD_DASHBOARDDATA_TO_USER.sql" />
+    <None Remove="SqlMigrations\020_SET_ID_CUSTOMER_NULLABLE_IN_RECEIPT.sql" />
+    <None Remove="SqlMigrations\030_ADD_LANG_COLUMN_TO_USER.sql" />
+    <None Remove="SqlMigrations\040_CREDIT_NOTE_MANAGEMENT.sql" />
+    <None Remove="SqlMigrations\050_CREDIT_NOTE_ADD_PDF_PATH.sql" />
+    <None Remove="SqlMigrations\051_CREDIT_NOTE_CreditNumberIsNullable.sql" />
+    <None Remove="SqlMigrations\060_ADD_COMPANY_SETTINGS.sql" />
+    <None Remove="SqlMigrations\070_ADD_ISSUER_INFO.sql" />
+    <None Remove="SqlMigrations\071_NEW_INVOCE_SP.sql" />
+    <None Remove="SqlMigrations\072_NEW_CREDITNOTE_SP.sql" />
+    <None Remove="SqlMigrations\073_NEW_CREDITNOTE_SP_FIXED.sql" />
+    <None Remove="SqlMigrations\080_ADD_PRODUCT_SETTINGS.sql" />
+    <None Remove="SqlMigrations\090_ADD_EXPIRE_MONTH_LIMIT.sql" />
+    <None Remove="SqlMigrations\100_ADD_REPORT_TABLE.sql" />
+    <None Remove="SqlMigrations\110_NEW_CREDITNOTE_SP_PATTERN.sql" />
+    <None Remove="SqlMigrations\120_ADD_HOUSE_NUMBER.sql" />
+    <None Remove="SqlMigrations\130_NEW_INVOICE_SP.sql" />
+    <None Remove="SqlMigrations\140_DEL_DISCOUNT_COLUMN_FROM_RECEIPT.sql" />
+    <None Remove="SqlMigrations\150_FIX_REVERSAL_COLUMNS.sql" />
+    <None Remove="SqlMigrations\160_ADD_FULLNAME_GENDAR_COLUMN_TO_CUSTOMER.sql" />
+    <None Remove="SqlMigrations\170_ADD_PHOTO_COL_TO_CUSTOMER.sql" />
+    <None Remove="SqlMigrations\171_ADD_PHOTO_FULL_PATH_COL_TO_CUSTOMER.sql" />
+    <None Remove="SqlMigrations\180_CREATE_ATTACHMENT_TABLE.sql" />
+    <None Remove="SqlMigrations\190_ADD_RECEIPT_HEADER_FOOTER_SETTINGS.sql" />
+    <None Remove="SqlMigrations\200_ADD_BIRTHPLACE_TO_CUSTOMER_TABLE.sql" />
+    <None Remove="SqlMigrations\210_CREATE_IMPORT_TABLE.sql" />
+    <None Remove="SqlMigrations\220_ADD_TEACHER_REF_TO_PRODUCTS.sql" />
+    <None Remove="SqlMigrations\230_PRODUCT_SESSION_MANAGEMENT.sql" />
+    <None Remove="SqlMigrations\240_ADD_EXCEL_DATE_PATTERN_SETTINGS.sql" />
+    <None Remove="SqlMigrations\250_ALARM_WORKER_MANAGEMENT.sql" />
+    <None Remove="SqlMigrations\260_ADD_ACCOUNTING_YEAR.sql" />
+    <None Remove="SqlMigrations\270_ADD_DASHBOARD_SETTINGS.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqliteMigrations\200_ADD_BIRTHPLACE_TO_CUSTOMER_TABLE.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SqliteMigrations\210_CREATE_IMPORT_TABLE.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SqliteMigrations\220_ADD_TEACHER_REF_TO_PRODUCTS.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SqliteMigrations\230_PRODUCT_SESSION_MANAGEMENT.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SqliteMigrations\240_ADD_EXCEL_DATE_PATTERN_SETTINGS.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SqliteMigrations\260_ADD_ACCOUNTING_YEAR.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SqliteMigrations\250_ALARM_WORKER_MANAGEMENT.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SqliteMigrations\270_ADD_DASHBOARD_SETTINGS.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SqliteMigrations\CREATE_DB.sql">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

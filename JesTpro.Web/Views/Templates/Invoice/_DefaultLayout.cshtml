@@ -1,0 +1,52 @@
+﻿<style>
+    .mailEnvelope {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 1rem;
+        padding: 2rem;
+    }
+
+    .mailBody {
+        padding: 1rem;
+        margin: 1rem;
+        /*border: 1px solid gainsboro;*/
+    }
+
+        .mailBody h1 {
+            font-size: 1.3rem;
+        }
+
+    .piccolo {
+        font-size: x-small;
+    }
+    .td-left {
+        text-align: left;
+    }
+    .td-right {
+        text-align: right;
+    }
+    .strong {
+        font-weight: bold;
+    }
+    .bordered {
+        border: 1px solid lightgray;
+        padding: 5px;
+    }
+    table {
+        width: 100%;
+    }
+</style>
+
+@{
+    Layout = null;
+}
+
+<div class="mailEnvelope">
+    <div class="mailBody">
+        @RenderBody()
+    </div>
+
+    <span class="piccolo" style="display:none">
+        Id email: @Model.Id.ToString("N")
+    </span>
+
+</div>

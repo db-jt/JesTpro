@@ -1,0 +1,130 @@
+﻿@model jt.jestpro.Models.CreditNoteDto
+@{
+    Layout = "Invoice/_DefaultLayout.cshtml";
+    var invoiceN = Model.InvoiceNumber;
+    var paymentDate = Model.IssueDate.ToString("dd/MM/yyyy");
+    var invoiceNum = Model.InvoiceDate.ToString("dd/MM/yyyy");
+    var total = Model.PaymentReceipt.PaymentReceiptDetails.Sum(x => x.CostAmount);
+    var companyAddress = "" + Model.Settings.FirstOrDefault(x => x.Key == "company.name").Value;
+    var companyLogo = "";
+    var companyInvoiceType = "";
+    if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.address")?.Value))
+    {
+        companyAddress = companyAddress + ", " + Model.Settings.FirstOrDefault(x => x.Key == "company.address").Value;
+    }
+    if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.city")?.Value))
+    {
+        companyAddress = companyAddress + ", " + Model.Settings.FirstOrDefault(x => x.Key == "company.city").Value;
+    }
+    if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.cap")?.Value))
+    {
+        companyAddress = companyAddress + ", " + Model.Settings.FirstOrDefault(x => x.Key == "company.cap").Value;
+    }
+    if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.state")?.Value))
+    {
+        companyAddress = companyAddress + ", " + Model.Settings.FirstOrDefault(x => x.Key == "company.state").Value;
+    }
+    if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.country")?.Value))
+    {
+        companyAddress = companyAddress + ", " + Model.Settings.FirstOrDefault(x => x.Key == "company.country").Value;
+    }
+    if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.invoice-logo")?.Value))
+    {
+        companyLogo = Model.Settings.FirstOrDefault(x => x.Key == "company.invoice-logo").Value;
+    }
+    if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.invoice-type")?.Value))
+    {
+        companyInvoiceType = Model.Settings.FirstOrDefault(x => x.Key == "company.invoice-type").Value;
+    }
+    
+    var customerAddress = string.IsNullOrEmpty(Model.PaymentReceipt.CustomerAddress) ? new string[0] : Model.PaymentReceipt.CustomerAddress.Split("\n");
+}
+@if (!string.IsNullOrEmpty(companyInvoiceType) || !string.IsNullOrEmpty(companyLogo))
+{
+    <table style="width:100%">
+        <tbody>
+            <tr>
+                <td style="width: 50%">
+                    @if (!string.IsNullOrEmpty(companyLogo))
+                    {
+                        <img src="@companyLogo" style="max-height: 150px;" />
+                    }
+                </td>
+                <td style="width: 50%">
+                    <h2 style="font-size:2em;">Credit note</h2>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+<hr style="border: 1px solid black;" />
+<div style="text-align: left; font-size: smaller">
+    <div>@companyAddress</div>
+    @if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.vat")?.Value))
+    {
+        <div>VAT Nr.: @Model.Settings.FirstOrDefault(x => x.Key == "company.vat").Value</div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Settings.FirstOrDefault(x => x.Key == "company.fiscalcode")?.Value))
+    {
+        <div>F.Code: @Model.Settings.FirstOrDefault(x => x.Key == "company.fiscalcode").Value</div>
+    }
+    <div>@companyInvoiceType n.: @invoiceN</div>
+    <div>Date: @paymentDate</div>
+</div>
+<div style="text-align: right;">
+    <div>@Model.PaymentReceipt.CustomerName</div>
+    @foreach (var s in customerAddress)
+    {
+        <div>@s</div>
+    }
+
+</div>
+<h1>Credit note for invoce number @invoiceN isseud on @paymentDate</h1>
+<div style="margin-left: 10px;">
+    <table>
+        <thead>
+            <tr>
+                <th width="10%" class="td-left">Amount</th>
+                <th width="70%" class="td-left">Category</th>
+                <th width="20%" class="td-left">Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PaymentReceipt.PaymentReceiptDetails)
+            {
+                var qta = item.ProductAmount.ToString();
+                var name = string.Concat(item.Name, " - ", item.Description);
+                var cost = string.Concat((item.CostAmount * (-1)).ToString("F"), "€");
+                <tr>
+                    <td width="10%" class="td-right bordered">
+                        @qta
+                    </td>
+                    <td width="70%" class="td-left bordered">
+                        @name
+                    </td>
+                    <td width="20%" class="td-right bordered">
+                        @cost
+                    </td>
+                </tr>
+            }
+           
+            <tr>
+                <td colspan="3" class="td-right strong bordered">
+                    Grand total: @(((total) * (-1)).ToString("F")) &euro;
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div style="font-size:small; margin-top: 2rem;">
+    Info<br />
+    @Model.Id<br />
+    Customer ref: @Model.PaymentReceipt.CustomerName
+    @if (Model.PaymentReceipt.Customer != null)
+    {
+        <span>&lt; @Model.PaymentReceipt.Customer.Email &gt;</span>
+    }
+</div>
+<div style="margin-top: 2rem; font-size:larger;">
+    Best regards,<br /> @Model.Settings.FirstOrDefault(x => x.Key == "company.name").Value
+</div>

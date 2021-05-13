@@ -1,0 +1,19 @@
+﻿@model jt.jestpro.Models.PaymentReceiptDto
+@{
+    Layout = "Emails/_DefaultLayout.cshtml";
+    var invoiceN = Model.InvoiceNumber;
+    var paymentDate = Model.PaymentDate.Value.ToString("dd/MM/yyyy");
+    var total = Model.PaymentReceiptDetails.Sum(x => x.CostAmount).ToString("F");
+    var customerName = $"{Model.Customer.FirstName} {Model.Customer.LastName}";
+}
+
+<h4>Ciao @customerName,</h4>
+
+<div style="margin-left: 10px;">
+    <div>
+        in allegato puoi trovare la fattura @invoiceN
+    </div>
+</div>
+<div style="margin-top: 10px;">
+    Saluti, JesTpro team
+</div>

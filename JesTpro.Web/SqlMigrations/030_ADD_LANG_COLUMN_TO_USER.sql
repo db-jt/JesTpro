@@ -1,0 +1,3 @@
+﻿ALTER TABLE `user` 
+ADD COLUMN `Lang` CHAR(2) NULL DEFAULT NULL AFTER `DashboardData`;
+

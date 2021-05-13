@@ -1,0 +1,2 @@
+﻿ALTER TABLE `customer` 
+ADD COLUMN `HouseNumber` VARCHAR(45) NULL DEFAULT NULL AFTER `Address`;
