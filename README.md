@@ -1,6 +1,6 @@
 # JesTpro #
 Simple management software for small business associations 
-
+edit
 ## Prerequisites ##
 .Net core 3.1 SDK (https://dotnet.microsoft.com/download/dotnet/3.1)
 
